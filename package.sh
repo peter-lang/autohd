@@ -13,7 +13,7 @@ fi
 
 echo "Creating $FINAL_NAME"
 cd "$PROJ_DIR"
-zip -r -X "$FINAL_NAME" "$DIR_NAME"
+zip -r "$FINAL_NAME" "$DIR_NAME" -x \*.DS_Store
 cd "$ORIG_PWD"
 
 echo "Finished $FINAL_NAME"
