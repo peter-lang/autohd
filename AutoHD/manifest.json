@@ -1,10 +1,12 @@
 {
-  "name": "Auto Load HD for YouTube",
-  "description": "Automatically loads HD version of YouTube videos. Uses JS API for HTML5 and hd=1 query for AS player.",
-  "version": "1.2.0",
-  "minimum_chrome_version": "20",
-
   "manifest_version": 2,
+
+  "name": "Auto Load HD for YouTube",
+  "short_name": "yt-autohd",
+
+  "description": "Automatically loads HD version of YouTube videos.\nSource at:\nhttps://github.com/peter-lang/autohd",
+  "version": "1.2.1",
+  "minimum_chrome_version": "22",
 
   "content_scripts": [{
     "js": ["contentscript.js"],
@@ -13,7 +15,10 @@
   "options_page": "options.html",
   "web_accessible_resources": ["script.js"],
 
-  "background": {"scripts":["background.js"]},
+  "background": {
+    "scripts":["background.js"],
+    "persistent": false
+  },
 
   "permissions": [
     "webRequest",
