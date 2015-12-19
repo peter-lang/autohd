@@ -36,7 +36,7 @@ About Chrome Extensions:
 
 ## Contribute
 
-Feel free to **pull requests** or to **apply as contributor**.
+Feel free to **fork**, **pull requests** or to **apply as collaborator**.
 
 If you have any questions just mail me:
 - [lang.peter.github@gmail.com](mailto:lang.peter.github@gmail.com?Subject=AutoHD)
