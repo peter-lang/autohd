@@ -5,7 +5,7 @@ Chrome Extension that lets you specify the preferred video compression of the pl
 The goal is to support the latest YouTube player, and to enable more user preferences.
 
 **Chrome Webstore** link for plugin:
-<https://chrome.google.com/webstore/detail/auto-load-hd-for-youtube/ieabagkfbldpcgdnnlckchlnkmneamml>
+<https://chrome.google.com/webstore/detail/auto-hd-for-youtube-opens/ieabagkfbldpcgdnnlckchlnkmneamml>
 
 ## Develop
 
