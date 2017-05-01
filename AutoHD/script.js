@@ -11,7 +11,7 @@ window.onYouTubePlayerReady = function(player) {
 	})(player);
 
 	var featured_video = (function() {
-		return new RegExp("^\/user\/[^\/]+\/featured").test(window.location.pathname);
+		return new RegExp("^\/(user|channel)\/").test(window.location.pathname);
 	})();
 
 	if (featured_video && yt_pause_featured_video) {
