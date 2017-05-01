@@ -19,15 +19,11 @@ The goal is to support the latest YouTube player and to enable more user prefere
 ### Project files
 
 - `mainfest.json`: manifest file for extension
-- `background.js`:
-  - used for legacy Flash players
-  - adds `?hd=1` query param
 - `contentscript.js`:
-  - used for HTML5 players
-  - injects `script.js` to HTML DOM
+  - injects `script.js` and storage data to HTML DOM
 - `script.js`:
   - listens for `onYouTubePlayerReady` event
-  - uses the reverse-engineered YouTube API
+  - uses the YouTube API
 
 ### Docs
 
@@ -36,8 +32,6 @@ About Chrome Extensions:
 
 ## Contribute
 
-Feel free to **fork**, **pull requests** or to **apply as collaborator**.
-
-If you have any questions just mail me:
+If you wanna contribute or have any questions just mail me:
 - [lang.peter.github@gmail.com](mailto:lang.peter.github@gmail.com?Subject=AutoHD)
 
