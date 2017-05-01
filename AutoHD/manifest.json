@@ -9,8 +9,8 @@
     "128": "icons/icon128.png"
   },
 
-  "description": "Automatically loads HD version (or any preferred compression) of YouTube videos. Source at: https://github.com/peter-lang/autohd",
-  "version": "1.2.4",
+  "description": "Automatically loads HD version of YouTube videos and disable autostart of user's featured video. Source at: https://github.com/peter-lang/autohd",
+  "version": "1.2.5",
   "minimum_chrome_version": "22",
 
   "content_scripts": [{
@@ -20,14 +20,9 @@
   "options_page": "options.html",
   "web_accessible_resources": ["script.js"],
 
-  "background": {
-    "scripts":["background.js"]
-  },
-
   "permissions": [
     "webRequest",
     "*://www.youtube.com/*",
-    "webRequestBlocking",
     "storage"
   ]
 }

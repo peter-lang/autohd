@@ -2,12 +2,20 @@ window.onYouTubePlayerReady = function(player) {
 	if (!player)
 		return;
 
-	var selected;
+	var selected = (function(player) {
+		if (yt_preferred_quality === 'best') {
+			return player.getAvailableQualityLevels()[0];
+		} else {
+			return yt_preferred_quality;
+		}
+	})(player);
 
-	if (yt_preferred_quality === 'best') {
-		selected = player.getAvailableQualityLevels()[0];
-	} else {
-		selected = yt_preferred_quality;
+	var featured_video = (function() {
+		return new RegExp("^\/user\/[^\/]+\/featured").test(window.location.pathname);
+	})();
+
+	if (featured_video && yt_pause_featured_video) {
+		player.pauseVideo();
 	}
 
 	player.setPlaybackQuality(selected);

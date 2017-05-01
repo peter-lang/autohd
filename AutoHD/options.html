@@ -1,26 +1,32 @@
-<!DOCTYPE html>
 <html>
-<head><title>Auto HD for YouTube</title></head>
-
+<head>
+	<title>Auto Load HD for YouTube</title>
+</head>
 <body>
 
-Preferred quality:
-<select id="quality" style="margin-left: 10px">
-	<option value="best">Best available</option>
-	<option value="highres">1080p+</option>
-	<option value="hd1080">1080p</option>
-	<option value="hd720">720p</option>
-	<option value="large">480p</option>
-	<option value="medium">360p</option>
-	<option value="small">240p</option>
-	<option value="tiny">144p</option>
-</select>
+<div style="margin-bottom: 5px">
+	<label for="quality">Preferred quality:</label>
+	<select id="quality" style="margin-left: 10px">
+		<option value="best">Best available</option>
+		<option value="highres">1080p+</option>
+		<option value="hd1080">1080p</option>
+		<option value="hd720">720p</option>
+		<option value="large">480p</option>
+		<option value="medium">360p</option>
+		<option value="small">240p</option>
+		<option value="tiny">144p</option>
+	</select>
+</div>
+<div style="margin-bottom: 5px">
+	<label for="disable_autostart">Disable Autostart of user's featured video:</label>
+	<input type="checkbox" id="disable_autostart" value="disable_autostart">
+</div>
 
-<br>
 <div id="status"></div>
-<button id="save">Save</button>
+<div>
+	<button id="save">Save</button>
+</div>
+
 </body>
-
 <script src="options.js"></script>
-
 </html>
