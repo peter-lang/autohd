@@ -30,27 +30,30 @@ function overrideScrollWheel(player) {
 			return true;
 		}
 
-		e.preventDefault();
-		if (2*Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-			d_vol += e.deltaY;
-			var modulus = parseInt(d_vol / yt_sensitivity);
-			if (modulus) {
-				var volume = player.getVolume() + (yt_invert_y ? -modulus : modulus) * 5;
-				player.setVolume(Math.min(Math.max(volume, 0), 100));
-				d_vol -= modulus*yt_sensitivity;
-				vm.innerHTML = player.getVolume() + '%';
-
-				if (prev_timeout) {
-					clearTimeout(prev_timeout);
-					prev_timeout = 0;
-				}
-				vm.classList.remove('hide');
-				prev_timeout = setTimeout(function() {
-					vm.classList.add('hide');
-					prev_timeout = 0;
-				}, 1000);
-			}
+		if (2*Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+			return true;
 		}
+
+		e.preventDefault();
+		d_vol += e.deltaY;
+		var modulus = parseInt(d_vol / yt_sensitivity);
+		if (modulus) {
+			var volume = player.getVolume() + (yt_invert_y ? -modulus : modulus) * 5;
+			player.setVolume(Math.min(Math.max(volume, 0), 100));
+			d_vol -= modulus*yt_sensitivity;
+			vm.innerHTML = player.getVolume() + '%';
+
+			if (prev_timeout) {
+				clearTimeout(prev_timeout);
+				prev_timeout = 0;
+			}
+			vm.classList.remove('hide');
+			prev_timeout = setTimeout(function() {
+				vm.classList.add('hide');
+				prev_timeout = 0;
+			}, 1000);
+		}
+		return false;
 	};
 }
 
