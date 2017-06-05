@@ -1,10 +1,15 @@
 <html>
 <head>
 	<title>Auto Load HD for YouTube</title>
+	<style>
+		.volume_scroll {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 
-<div style="margin-bottom: 5px">
+<p>
 	<label for="quality">Preferred quality:</label>
 	<select id="quality" style="margin-left: 10px">
 		<option value="best">Best available</option>
@@ -16,16 +21,34 @@
 		<option value="small">240p</option>
 		<option value="tiny">144p</option>
 	</select>
-</div>
-<div style="margin-bottom: 5px">
+</p>
+<p>
 	<label for="disable_autostart">Disable Autostart of user's featured video:</label>
 	<input type="checkbox" id="disable_autostart" value="disable_autostart">
-</div>
+</p>
 
-<div id="status"></div>
-<div>
-	<button id="save">Save</button>
+<p>
+	<label for="volume_scroll">Enable Volume Scrolling:</label>
+	<input type="checkbox" id="volume_scroll" value="volume_scroll">
+</p>
+<p class="volume_scroll">
+	<label for="y_sensitivity">Sensitivity: </label>
+	<input id="y_sensitivity" type="range" min="1" max="30" step="1" value="10" />
+	<span style="width: 20px" id="y_sensitivty_label">10</span>
+</p>
+<p class="volume_scroll">
+	<label for="y_invert">Invert:</label>
+	<input type="checkbox" id="y_invert" value="y_invert" />
+</p>
+
 </div>
+<p>
+	<div id="status"></div>
+	<div>
+		<button id="save">Save</button>
+	</div>
+</p>
+
 
 </body>
 <script src="options.js"></script>
