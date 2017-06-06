@@ -21,8 +21,8 @@ function notify_label(input_id, label_id) {
 	return true;
 }
 
-function check_visibility(className, predicate) {
-	[].slice.call(document.getElementsByClassName(className))
+function check_visibility(class_name, predicate) {
+	[].slice.call(document.getElementsByClassName(class_name))
 		.forEach(function (el) {
 			el.style.display = predicate ? 'block' : 'none';
 		});
