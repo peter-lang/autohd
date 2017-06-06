@@ -65,7 +65,17 @@ function override_scroll_event(player) {
 		}
 	}
 
-	movie_player.onwheel = function(e) {
+	document.onwheel = function(e) {
+		if (!e.target.classList.contains('html5-main-video')) {
+			return true;
+		}
+
+		if (!scroll_enabled(yt_config.yt_volume_scroll) &&
+			!scroll_enabled(yt_config.yt_seek_scroll)) {
+			return true;
+		}
+
+		e.preventDefault();
 		if (scroll_enabled(yt_config.yt_volume_scroll) && 
 			(Math.abs(e.deltaY) >= 3*Math.abs(e.deltaX))) {
 			// vertical scrolling - volume | direction is within +/- 16.7 degree
@@ -75,13 +85,10 @@ function override_scroll_event(player) {
 				d_vol -= modulus * yt_config.yt_sensitivity_y;
 				var volume = Math.min(Math.max(player.getVolume() + (yt_config.yt_invert_y ? -modulus : modulus) * yt_config.yt_step_y, 0), 100);
 				if (Math.abs(volume - player.getVolume()) < 1.0) {
-					return true;
+					return false;
 				}
 				player.setVolume(volume);
 				notify_player("Volume: " + player.getVolume() + '%');
-				return false;
-			} else {
-				return false;
 			}
 		} else if (scroll_enabled(yt_config.yt_seek_scroll) && 
 			(Math.abs(e.deltaX) >= 3*Math.abs(e.deltaY))) {
@@ -92,16 +99,13 @@ function override_scroll_event(player) {
 				d_seek -= modulus * yt_config.yt_sensitivity_x;
 				var seek = Math.min(Math.max(player.getCurrentTime() + (yt_config.yt_invert_x ? -modulus : modulus) * yt_config.yt_step_x, 0.0), player.getDuration());
 				if (Math.abs(seek - player.getCurrentTime()) < yt_config.yt_step_x) {
-					return true;
+					return false;
 				}
 				player.seekTo(seek);
 				notify_player("Seek: " + format_play_time(player.getCurrentTime()) + " / " + format_play_time(player.getDuration()));
-				return false;
-			} else {
-				return false;
 			}
 		}
-		return true;
+		return false;
 	};
 }
 
