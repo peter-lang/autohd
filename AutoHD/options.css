@@ -1,0 +1,11 @@
+.info-showup { 
+	margin-left: 5px;
+	opacity: 1; 
+	transition: opacity 0s, height 0s;
+}
+
+.info-showup.info-hide { 
+	opacity: 0;
+	height: 0;
+	transition: opacity 0.5s linear, height 0s linear 0.5s;
+}
