@@ -65,11 +65,7 @@ function override_scroll_event(player) {
 		}
 	}
 
-	document.onwheel = function(e) {
-		if (!e.target.classList.contains('html5-main-video')) {
-			return true;
-		}
-
+	movie_player.onwheel = function(e) {
 		if (!scroll_enabled(yt_config.yt_volume_scroll) &&
 			!scroll_enabled(yt_config.yt_seek_scroll)) {
 			return true;
