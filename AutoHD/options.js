@@ -21,46 +21,40 @@ function notify_label(input_id, label_id) {
 	return true;
 }
 
-function check_visibility(class_name, predicate) {
-	[].slice.call(document.getElementsByClassName(class_name))
-		.forEach(function (el) {
-			el.style.display = predicate ? 'block' : 'none';
-		});
+function check_visibility(id, predicate) {
+	document.getElementById(id).style.display = predicate ? 'block' : 'none';
 	return true;
 }
 
-function save_options() {
-	var quality = get_select_value("quality"),
-		disable_autostart = document.getElementById("disable_autostart").checked,
+function save_options_factory(id) {
+	var saved_timeout = 0;
+	return function() {
+			storage.set({
+			"yt_preferred_quality": get_select_value("quality"),
+			"yt_pause_featured_video": !!document.getElementById("disable_autostart").checked,
+			'yt_volume_scroll': get_select_value('volume_scroll'),
+			'yt_seek_scroll': get_select_value('seek_scroll'),
+			'yt_step_x': document.getElementById('x_step').value,
+			'yt_step_y': document.getElementById('y_step').value,
+			'yt_sensitivity_x': document.getElementById('x_sensitivity').value,
+			'yt_sensitivity_y': document.getElementById('y_sensitivity').value,
+			'yt_invert_x': !!document.getElementById('x_invert').checked,
+			'yt_invert_y': !!document.getElementById('y_invert').checked
+		}, function () {
+			if (saved_timeout) {
+				clearTimeout(saved_timeout);
+				saved_timeout = 0;
+			}
 
-		seek_scroll = get_select_value('seek_scroll'),
-		x_sensitivity = document.getElementById('x_sensitivity').value,
-		x_invert = document.getElementById('x_invert').checked,
-		x_step = document.getElementById('x_step').value,
+			document.getElementById(id).classList.remove('info-hide');
+			saved_timeout = setTimeout(function() {
+				document.getElementById(id).classList.add('info-hide');
+				saved_timeout = 0;
+			}, 500);
+		});
 
-		volume_scroll = get_select_value('volume_scroll'),
-		y_sensitivity = document.getElementById('y_sensitivity').value,
-		y_invert = document.getElementById('y_invert').checked,
-		y_step = document.getElementById('y_step').value;
-
-	storage.set({
-		"yt_preferred_quality": quality,
-		"yt_pause_featured_video": !!disable_autostart,
-		'yt_volume_scroll': volume_scroll,
-		'yt_seek_scroll': seek_scroll,
-		'yt_step_x': x_step,
-		'yt_step_y': y_step,
-		'yt_sensitivity_x': x_sensitivity,
-		'yt_sensitivity_y': y_sensitivity,
-		'yt_invert_x': !!x_invert,
-		'yt_invert_y': !!y_invert
-	}, function () {
-		var status = document.getElementById("status");
-		status.innerHTML = "Options Saved.";
-		setTimeout(function() {
-			status.innerHTML = "";
-		}, 2000);
-	});
+		return true;
+	}
 }
 
 function restore_options() {
@@ -94,10 +88,10 @@ function restore_options() {
 
 		// Volume Scroll
 		set_select_value('volume_scroll', volume_scroll);
-		check_visibility('volume_scroll', volume_scroll !== 'NONE');
+		check_visibility('volume_scroll_detail', volume_scroll !== 'NONE');
 
 		document.getElementById('y_sensitivity').value = y_sensitivity;
-		notify_label('y_sensitivity', 'y_sensitivty_label');
+		notify_label('y_sensitivity', 'y_sensitivity_label');
 
 		document.getElementById('y_invert').checked = !!y_invert;
 
@@ -106,10 +100,10 @@ function restore_options() {
 
 		// Seek Scroll
 		set_select_value('seek_scroll', seek_scroll);
-		check_visibility('seek_scroll', seek_scroll !== 'NONE');
+		check_visibility('seek_scroll_detail', seek_scroll !== 'NONE');
 
 		document.getElementById('x_sensitivity').value = x_sensitivity;
-		notify_label('x_sensitivity', 'x_sensitivty_label');
+		notify_label('x_sensitivity', 'x_sensitivity_label');
 
 		document.getElementById('x_invert').checked = !!x_invert;
 
@@ -119,21 +113,40 @@ function restore_options() {
 }
 
 document.addEventListener('DOMContentLoaded', restore_options, false);
-document.getElementById('save').addEventListener('click', save_options);
+
+// add input listeners
+document.getElementById('quality').addEventListener('change', save_options_factory('quality-info'));
+document.getElementById('disable_autostart').addEventListener('change', save_options_factory('disable_autostart-info'));
+document.getElementById('volume_scroll').addEventListener('change', save_options_factory('volume_scroll-info'));
+document.getElementById('y_sensitivity').addEventListener('change', save_options_factory('y_sensitivity-info'));
+document.getElementById('y_invert').addEventListener('change', save_options_factory('y_invert-info'));
+document.getElementById('y_step').addEventListener('change', save_options_factory('y_step-info'));
+document.getElementById('seek_scroll').addEventListener('change', save_options_factory('seek_scroll-info'));
+document.getElementById('x_sensitivity').addEventListener('change', save_options_factory('x_sensitivity-info'));
+document.getElementById('x_invert').addEventListener('change', save_options_factory('x_invert-info'));
+document.getElementById('x_step').addEventListener('change', save_options_factory('x_step-info'));
+
+// visibility listeners
 document.getElementById('volume_scroll').addEventListener('change', function(){
-	return check_visibility('volume_scroll', get_select_value('volume_scroll') !== 'NONE');
+
+	return check_visibility('volume_scroll_detail', get_select_value('volume_scroll') !== 'NONE');
+});
+
+document.getElementById('volume_scroll').addEventListener('change', function(){
+
+	return check_visibility('volume_scroll_detail', get_select_value('volume_scroll') !== 'NONE');
 });
 document.getElementById('seek_scroll').addEventListener('change', function(){
-	return check_visibility('seek_scroll', get_select_value('seek_scroll') !== 'NONE');
+	return check_visibility('seek_scroll_detail', get_select_value('seek_scroll') !== 'NONE');
 });
 document.getElementById('y_sensitivity').addEventListener('input', function(){
-	return notify_label('y_sensitivity', 'y_sensitivty_label');
+	return notify_label('y_sensitivity', 'y_sensitivity_label');
 });
 document.getElementById('y_step').addEventListener('input', function(){
 	return notify_label('y_step', 'y_step_label');
 });
 document.getElementById('x_sensitivity').addEventListener('input', function(){
-	return notify_label('x_sensitivity', 'x_sensitivty_label');
+	return notify_label('x_sensitivity', 'x_sensitivity_label');
 });
 document.getElementById('x_step').addEventListener('input', function(){
 	return notify_label('x_step', 'x_step_label');

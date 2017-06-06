@@ -1,85 +1,124 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Auto Load HD for YouTube</title>
-	<style>
-		.volume_scroll {
-			display: none;
-		}
-	</style>
+	<title>Auto HD for YouTube (OpenSource)</title>
+
+	<!-- <link rel="stylesheet" href="css/bootstrap.min.css" >
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="css/main.css" > -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="options.css">
+
 </head>
 <body>
+<div class="container">
 
-<p>
-	<label for="quality">Preferred quality:</label>
-	<select id="quality" style="margin-left: 10px">
-		<option value="best">Best available</option>
-		<option value="highres">1080p+</option>
-		<option value="hd1080">1080p</option>
-		<option value="hd720">720p</option>
-		<option value="large">480p</option>
-		<option value="medium">360p</option>
-		<option value="small">240p</option>
-		<option value="tiny">144p</option>
-	</select>
-</p>
-<p>
-	<label for="disable_autostart">Disable Autostart of user's featured video:</label>
-	<input type="checkbox" id="disable_autostart" value="disable_autostart">
-</p>
+	<h1>Auto HD for YouTube (OpenSource)</h1>
 
-<p>
-	<label for="volume_scroll">Volume Scrolling:</label>
-	<select id="volume_scroll" style="margin-left: 10px">
-		<option value="NONE">Disable</option>
-		<option value="FULL_SCREEN">Fullscreen only</option>
-		<option value="ALL">Enable always</option>
-	</select>
-</p>
-<p class="volume_scroll">
-	<label for="y_sensitivity">Sensitivity: </label>
-	<input id="y_sensitivity" type="range" min="1" max="30" step="1" value="10" />
-	<span style="width: 20px" id="y_sensitivty_label">10</span>
-</p>
-<p class="volume_scroll">
-	<label for="y_invert">Invert:</label>
-	<input type="checkbox" id="y_invert" value="y_invert" />
-</p>
-<p class="volume_scroll">
-	<label for="y_step">Scroll step: </label>
-	<input id="y_step" type="range" min="1" max="10" step="1" value="5" />
-	<span style="width: 20px" id="y_step_label">5</span>
-</p>
+	<h3>Check project at <a href="https://github.com/peter-lang/autohd/" target="_blank">GitHub</a></h3>
 
-<p>
-	<label for="seek_scroll">Seek Scrolling:</label>
-	<select id="seek_scroll" style="margin-left: 10px">
-		<option value="NONE">Disable</option>
-		<option value="FULL_SCREEN">Fullscreen only</option>
-		<option value="ALL">Enable always</option>
-	</select>
-</p>
-<p class="seek_scroll">
-	<label for="x_sensitivity">Sensitivity: </label>
-	<input id="x_sensitivity" type="range" min="1" max="30" step="1" value="10" />
-	<span style="width: 20px" id="x_sensitivty_label">10</span>
-</p>
-<p class="seek_scroll">
-	<label for="x_invert">Invert:</label>
-	<input type="checkbox" id="x_invert" value="x_invert" />
-</p>
-<p class="seek_scroll">
-	<label for="x_step">Scroll step: </label>
-	<input id="x_step" type="range" min="1" max="10" step="1" value="5" />
-	<span style="width: 20px" id="x_step_label">5</span>
-</p>
+	<form role="form" class="form-vertical">
+		
+		<div class="form-group">
+			<label for="quality">Preferred quality <div id="quality-info" class="label label-success info-showup info-hide">Saved</div></label>
+			<select id="quality" class="form-control">
+				<option value="best">Best available</option>
+				<option value="highres">1080p+</option>
+				<option value="hd1080">1080p</option>
+				<option value="hd720">720p</option>
+				<option value="large">480p</option>
+				<option value="medium">360p</option>
+				<option value="small">240p</option>
+				<option value="tiny">144p</option>
+			</select>
+			<span class="help-block">
+				Video resolution will be set to preferred quality when it is started.
+			</span>
+		</div>
+		<div class="form-check">
+			<label for="disable_autostart" class="form-check-label">Disable Autostart of featured videos: <input type="checkbox" class="form-check-input" id="disable_autostart" value="disable_autostart" checked><div id="disable_autostart-info" class="label label-success info-showup info-hide">Saved</div></label>
+			<span class="help-block">
+				Users and channels may have a featured video on their homepage which is started automatically. This video will be paused right away.
+			</span>
+		</div>
 
-<p>
-	<div id="status"></div>
-	<div>
-		<button id="save">Save</button>
-	</div>
-</p>
+		<div class="form-group">
+			<label for="volume_scroll">Volume Scrolling <div id="volume_scroll-info" class="label label-success info-showup info-hide">Saved</div></label>
+			<select id="volume_scroll" class="form-control">
+				<option value="NONE">Disabled</option>
+				<option value="FULL_SCREEN">Enabled only in Fullscreen</option>
+				<option value="ALL">Enabled always</option>
+			</select>
+			<span class="help-block">
+				Adjust Volume by top-down scrolling over player area.
+			</span>
 
+			<div id="volume_scroll_detail" style="padding-left: 5%">
+				<div class="form-group">
+					<label for="y_sensitivity">Sensitivity <span style="width: 20px" id="y_sensitivity_label">10</span><div id="y_sensitivity-info" class="label label-success info-showup info-hide">Saved</div></label>
+					<input id="y_sensitivity" type="range" min="1" max="30" step="1" value="10" style="width: 30%" />
+					<span class="help-block">
+						The higher the sensitivity, the more scrolling needed for one scroll-tick. Note that scrolling values are system dependent.
+					</span>
+				</div>
+				<div class="form-check">
+					<label for="y_invert" class="form-check-label">Invert: <input type="checkbox" class="form-check-input" id="y_invert" value="y_invert"><div id="y_invert-info" class="label label-success info-showup info-hide">Saved</div></label>
+					<span class="help-block">
+						Inverts the top-down scrolling. Operating systems and browsers may mean 'up' and 'down' differently.
+					</span>
+				</div>
+				<div class="form-group">
+					<label for="y_step">Scroll step <span style="width: 20px" id="y_step_label">5</span>%<div id="y_step-info" class="label label-success info-showup info-hide">Saved</div></label>
+					<input id="y_step" type="range" min="1" max="10" step="1" value="5" style="width: 30%"/>
+					<span class="help-block">
+						Volume change by scroll-ticks.
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="seek_scroll">Seek Scrolling <div id="seek_scroll-info" class="label label-success info-showup info-hide">Saved</div></label>
+			<select id="seek_scroll" class="form-control" >
+				<option value="NONE">Disabled</option>
+				<option value="FULL_SCREEN">Enabled only in Fullscreen</option>
+				<option value="ALL">Enabled always</option>
+			</select>
+			<span class="help-block">
+				Jump backward or forward in the video by left-right scrolling over player area.
+			</span>
+
+			<div id="seek_scroll_detail" style="padding-left: 5%">
+				<div class="form-group">
+					<label for="x_sensitivity">Sensitivity <span style="width: 20px" id="x_sensitivity_label">10</span><div id="x_sensitivity-info" class="label label-success info-showup info-hide">Saved</div></label>
+					<input id="x_sensitivity" type="range" min="1" max="30" step="1" value="10" style="width: 30%" />
+					<span class="help-block">
+						The higher the sensitivity, the more scrolling needed for one scroll-tick. Note that scrolling values are system dependent.
+					</span>
+				</div>
+				<div class="form-check">
+					<label for="x_invert" class="form-check-label">Invert: <input type="checkbox" class="form-check-input" id="x_invert" value="x_invert" ><div id="x_invert-info" class="label label-success info-showup info-hide">Saved</div></label>
+					<span class="help-block">
+						Inverts the left-right scrolling. Operating systems and browsers may mean 'left' and 'right' differently.
+					</span>
+				</div>
+				<div class="form-group">
+					<label for="x_step">Scroll step <span style="width: 20px" id="x_step_label">5</span> second(s)<div id="x_step-info" class="label label-success info-showup info-hide">Saved</div></label>
+					<input id="x_step" type="range" min="1" max="10" step="1" value="5" style="width: 30%" />
+					<span class="help-block">
+						Time-steps by scroll-ticks.
+					</span>
+				</div>
+			</div>
+		</div>
+
+	</form>
+</div>
 
 </body>
 <script src="options.js"></script>
