@@ -1,6 +1,4 @@
-(function () {
-
-var storage = chrome.storage.sync;
+(function (storage) {
 
 function get_select_value(id) {
 	var select = document.getElementById(id);
@@ -141,4 +139,4 @@ document.getElementById('x_step').addEventListener('input', function(){
 	return notify_label('x_step', 'x_step_label');
 });
 
-})();
+})(chrome.storage.sync);
