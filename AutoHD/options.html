@@ -28,8 +28,12 @@
 </p>
 
 <p>
-	<label for="volume_scroll">Enable Volume Scrolling:</label>
-	<input type="checkbox" id="volume_scroll" value="volume_scroll">
+	<label for="volume_scroll">Volume Scrolling:</label>
+	<select id="volume_scroll" style="margin-left: 10px">
+		<option value="NONE">Disable</option>
+		<option value="FULL_SCREEN">Fullscreen only</option>
+		<option value="ALL">Enable always</option>
+	</select>
 </p>
 <p class="volume_scroll">
 	<label for="y_sensitivity">Sensitivity: </label>
@@ -40,8 +44,35 @@
 	<label for="y_invert">Invert:</label>
 	<input type="checkbox" id="y_invert" value="y_invert" />
 </p>
+<p class="volume_scroll">
+	<label for="y_step">Scroll step: </label>
+	<input id="y_step" type="range" min="1" max="10" step="1" value="5" />
+	<span style="width: 20px" id="y_step_label">5</span>
+</p>
 
-</div>
+<p>
+	<label for="seek_scroll">Seek Scrolling:</label>
+	<select id="seek_scroll" style="margin-left: 10px">
+		<option value="NONE">Disable</option>
+		<option value="FULL_SCREEN">Fullscreen only</option>
+		<option value="ALL">Enable always</option>
+	</select>
+</p>
+<p class="seek_scroll">
+	<label for="x_sensitivity">Sensitivity: </label>
+	<input id="x_sensitivity" type="range" min="1" max="30" step="1" value="10" />
+	<span style="width: 20px" id="x_sensitivty_label">10</span>
+</p>
+<p class="seek_scroll">
+	<label for="x_invert">Invert:</label>
+	<input type="checkbox" id="x_invert" value="x_invert" />
+</p>
+<p class="seek_scroll">
+	<label for="x_step">Scroll step: </label>
+	<input id="x_step" type="range" min="1" max="10" step="1" value="5" />
+	<span style="width: 20px" id="x_step_label">5</span>
+</p>
+
 <p>
 	<div id="status"></div>
 	<div>
